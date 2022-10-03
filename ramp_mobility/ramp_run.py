@@ -55,15 +55,11 @@ inputfile_temp = r"..\database\temp_ninja_pop_1980-2019.csv"
 # start day UTC
 year = 2016; month = 12; day = 30; start_day = datetime.datetime(year,month,day,tzinfo=pytz.UTC)
 full_year = False       # Choose if simulating the whole year (True) or not (False), if False, the console will ask how many days should be simulated.
-<<<<<<< Updated upstream
 
 countries = ['AT', 'BE', 'BG', 'CH', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU',
     'IE', 'IT','LT', 'LU','LV', 'NL', 'NO', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'UK']
-=======
-dummy_days = 5 # Number of days to add at the beginning and the end of the simulation to avoid special cases at the beginning and at the end
 
-countries = ['AT']#, 'BE', 'BG', 'CH', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU',
-    #'IE', 'IT','LT', 'LU','LV', 'NL', 'NO', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'UK']
+dummy_days = 5 # Number of days to add at the beginning and the end of the simulation to avoid special cases at the beginning and at the end
 
 # Charging prameters
 charging = True         # True or False to select to activate the calculation of the charging profiles
@@ -75,7 +71,6 @@ Ch_stations = ([3.7, 11, 120], [0.6, 0.3, 0.1]) # Define nominal power of chargi
 # Plotting option
 plot_start_day = start_day # Possibility to set a different starting day for plots using the format: '2016-01-01'
 max_plot_days = 365  # Possiblity to limit the days of series plotting
->>>>>>> Stashed changes
 
 for c in countries:
     inputfile = f'Europe/{c}'
@@ -117,11 +112,16 @@ for c in countries:
     Usage_utc = pp.Time_correction(Usage_df, country, year, start_day)
 
     # By default, profiles and usage are plotted as a DataFrame
+
+    pp.Profile_df_plot(Profiles_utc, start = '01-01 00:00:00', end = '12-31 23:59:00', year = year, country = country)
+    pp.Usage_df_plot(Usage_utc, start = '01-01 00:00:00', end = '12-31 23:59:00', year = year, country = country, User_list = User_list)
+    
     plot_end_day = plot_start_day + datetime.timedelta(days=max_plot_days)
     pp.Profile_df_plot(Profiles_utc, start = plot_start_day, end = plot_end_day, year = year, country = country)
     pp.Usage_df_plot(Usage_utc, start = plot_start_day, end = plot_end_day, year = year, country = country, User_list = User_list)
 
     # Add temperature correction to the Power Profiles
+    
     # To be done after the UTC correction because the source data for Temperatures have time in UTC
     temp_profile = pp.temp_import(country, year, inputfile_temp) #Import temperature profiles, change the default path to the custom one
     Profiles_temp = pp.Profile_temp(Profiles_utc, year = year, temp_profile = temp_profile)
