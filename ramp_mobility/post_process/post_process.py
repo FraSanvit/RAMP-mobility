@@ -268,17 +268,25 @@ def Profile_temp(Profiles_df, temp_profile,  year = 2016):
     
     return Profiles_temp
 
-def Profile_temp_users(Profiles_user, temp_profile,  year, start_day, dummy_days = 1):
+def Profile_temp_users(Profiles_user, temp_profile, country, year = 2016, dummy_days = 1):
 
-    start_day = start_day - dt.timedelta(days=dummy_days)
+    if country == 'EL':
+        country = 'GR'
+    if country == 'UK':
+        country = 'GB' 
+    
+    start_day = dt.datetime(year, 1, 1) - dt.timedelta(days=dummy_days)
+
     n_periods = len(Profiles_user['Working - Large car'])
     
-    minutes_sim = pd.date_range(start=start_day, periods = n_periods, freq='T')
+    minutes_sim = pd.date_range(start=start_day, periods = n_periods, freq='T',tz=pytz.country_timezones[country][0])
         
     minutes = pd.date_range(start=str(year-1) + '-01-01', end=str(year+1) + '-12-31 23:59:00', freq='T', tz='utc')
 
     temp_profile.set_index(minutes, inplace = True)
-            
+    
+    temp_profile = temp_profile.tz_convert(pytz.country_timezones[country][0])
+    
     temp_profile = temp_profile.loc[minutes_sim]
     
     temp_coeff = pd.DataFrame(1, index = temp_profile.index, columns = temp_profile.columns)

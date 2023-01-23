@@ -137,11 +137,12 @@ for c in countries:
     #   pp.export_pickle('Profiles_User', Profiles_user_temp, inputfile, simulation_name)
 
     if charging:
+        
+        Profiles_user_temp = pp.Profile_temp_users(Profiles_user, temp_profile,country
+                                                   year, dummy_days)
+     
+        # Charging process function: if no problem is detected, only the cumulative charging profile is calculated. Otherwise, also the user specific quantities are included. 
 
-        Profiles_user_temp = pp.Profile_temp_users(Profiles_user, temp_profile,
-                                                   year, start_day, dummy_days)
-
-        # Charging process function: if no problem is detected, only the cumulative charging profile is calculated. Otherwise, also the user specific quantities are included.
         (Charging_profile, Ch_profile_user, SOC_user) = Charging_Process(
             Profiles_user_temp, User_list, country, year,dummy_days,
             residual_load, charging_mode, logistic, infr_prob, Ch_stations)
