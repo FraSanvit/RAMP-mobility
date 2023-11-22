@@ -138,8 +138,7 @@ for c in countries:
 
     if charging:
         
-        Profiles_user_temp = pp.Profile_temp_users(Profiles_user, temp_profile,country
-                                                   year, dummy_days)
+        Profiles_user_temp = pp.Profile_temp_users(Profiles_user, temp_profile,country, year, dummy_days)
      
         # Charging process function: if no problem is detected, only the cumulative charging profile is calculated. Otherwise, also the user specific quantities are included. 
 
@@ -150,8 +149,7 @@ for c in countries:
         Charging_profile_df = pp.Ch_Profile_df(Charging_profile, start_day_local)
 
         # Postprocess of charging profiles
-        Charging_profiles_utc = pp.Time_correction(Charging_profile_df,
-                                                   country, year, start_day)
+        Charging_profiles_utc = pp.Time_correction(Charging_profile_df, country, year, start_day)
 
         # Export charging profiles in csv
         pp.export_csv('Charging Profiles', Charging_profiles_utc, inputfile, simulation_name)
