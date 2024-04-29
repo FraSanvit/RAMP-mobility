@@ -190,3 +190,50 @@ def average_norm_profile(_profile_user,operand): # operand: (['sum','mean'])
 
     return (profile)
 
+def get_alpha3(country):
+    country_dict={
+        "AL": "ALB",
+        "AT": "AUT",
+        "BE": "BEL",
+        "BA": "BIH",
+        "BG": "BGR",
+        "HR": "HRV",
+        "CY": "CYP",
+        "CZ": "CZE",
+        "DK": "DNK",
+        "EE": "EST",
+        "FI": "FIN",
+        "FR": "FRA",
+        "DE": "DEU",
+        "GR": "GRC",
+        "EL": "GRC",
+        "HU": "HUN",
+        "IS": "ISL",
+        "IE": "IRL",
+        "IT": "ITA",
+        "LV": "LVA",
+        "LI": "LIE",
+        "LT": "LTU",
+        "LU": "LUX",
+        "MT": "MLT",
+        "ME": "MNE",
+        "NL": "NLD",
+        "NO": "NOR",
+        "PL": "POL",
+        "PT": "PRT",
+        "MK": "MKD",
+        "RO": "ROU",
+        "RS": "SRB",
+        "SK": "SVK",
+        "SI": "SVN",
+        "ES": "ESP",
+        "SE": "SWE",
+        "CH": "CHE",
+        "TR": "TUR",
+        "UA": "UKR",
+        "UK": "GBR",
+        "GB": "GBR"
+    }
+    alpha3_code=country_dict[country]
+
+    return alpha3_code
